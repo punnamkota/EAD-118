@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsive Login Page</title>
+
+  <style>
+    /* --- Base Styling --- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #4b6cb7, #182848);
+    }
+
+    .login-container {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      width: 350px;
+      text-align: center;
+    }
+
+    .login-form h2 {
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .input-group {
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 500;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 0.7rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .input-group input:focus {
+      border-color: #4b6cb7;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.8rem;
+      border: none;
+      background-color: #4b6cb7;
+      color: white;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #395591;
+    }
+
+    .error-message {
+      margin-top: 1rem;
+      color: red;
+      font-size: 0.9rem;
+    }
+
+    /* --- Responsive Design --- */
+    @media (max-width: 480px) {
+      .login-container {
+        width: 90%;
+        padding: 1.5rem;
+      }
+
+      button {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <form id="loginForm" class="login-form">
+      <h2>Login</h2>
+
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required />
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter your password"
+          required
+        />
+      </div>
+
+      <button type="submit">Login</button>
+      <p id="error-message" class="error-message"></p>
+    </form>
+  </div>
+
+  <script>
+    // --- JavaScript Validation ---
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault(); // prevent form submission
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const errorMessage = document.getElementById("error-message");
+
+      if (email === "" || password === "") {
+        errorMessage.textContent = "Please fill in all fields.";
+        errorMessage.style.color = "red";
+        return;
+      }
+
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      if (!email.match(emailPattern)) {
+        errorMessage.textContent = "Please enter a valid email.";
+        errorMessage.style.color = "red";
+        return;
+      }
+
+      // Simulate successful login
+      if (email === "test@example.com" && password === "123456") {
+        errorMessage.style.color = "green";
+        errorMessage.textContent = "Login successful!";
+        setTimeout(() => alert("Welcome back!"), 500);
+      } else {
+        errorMessage.style.color = "red";
+        errorMessage.textContent = "Invalid email or password.";
+      }
+    });
+  </script>
+</body>
+</html>
